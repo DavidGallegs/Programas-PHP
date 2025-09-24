@@ -20,9 +20,8 @@
         $part4 =   substr($ip,$byte3+1); //204
 
         $part1 = str_pad(decbin($part1),8,"0",STR_PAD_LEFT);
-        $part2 = str_pad(decbin($part2),8,"0",STR_PAD_LEFT);
-        $part3 = str_pad(decbin($part3),8,"0",STR_PAD_LEFT);
-        $part4 = str_pad(decbin($part4),8,"0",STR_PAD_LEFT);
+        $part2 = str_pad(decbin($part2),8,"0",STR_PAD_LEFT); 
+        $part3 = str_pad(decbin($part3),8,"0",STR_PAD_LEFT); 
 
         print("IP:". $ip . " en binario es: ". $part1.".". $part2."." . $part3."." . $part4);   
         
