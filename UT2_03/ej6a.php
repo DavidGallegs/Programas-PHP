@@ -20,9 +20,22 @@
 
 
         $arrayFusion = array_merge($array1,$array2,$array3);
+        
+        //Busqueda
+        $indice = array_search("Mecanizado", $arrayFusion); 
+        array_splice($arrayFusion,$indice,$indice);
 
 
-        //Mostrar inverso y sin mecanizado
+        //Inversión
+        $arrayInverso = array_reverse($arrayFusion);
+
+        // Imprimir
+        echo "<h1> ARRAY INVERTIDO </h1>";
+        foreach ($arrayFusion as $x) {
+            echo $x . "<br>";
+        }
+        echo "<br>";
+
 
 
     ?>
