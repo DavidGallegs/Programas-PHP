@@ -9,7 +9,7 @@
 
     <?php
 
-        $ruta = "C:/Users/Diego/OneDrive/Documentos/2 GRADO SUPERIOR/DWES/programas php/UT2_05/ejercicio1/alumnos.txt";
+        $ruta = "C:/Users/Diego/OneDrive/Documentos/2 GRADO SUPERIOR/DWES/programas php/UT2_05/ejercicio2/alumnos2.txt";
 
         $fichero = fopen($ruta,"r"); //'r' para extraer los datos del fichero
 
@@ -26,7 +26,12 @@
         //Siempre va a ir eligiendo linea por linea, hasta que detecte que no hay más lineas
         while (($linea = fgets($fichero)) !== false) { 
 
-            $nombre     = trim(substr($linea, 0, 40));  
+
+            // Django##Gallegos##Quishpe##11-01-2006##Madrid
+
+            $nombre     = trim(substr($linea, 0, strpos($linea,"#")));  
+
+            //Desde ?? hasta el proximo #
             $apellido1  = trim(substr($linea, 40, 41));    
             $apellido2  = trim(substr($linea, 81, 42));   
             $fecha_nac  = trim(substr($linea, 123, 10));   
