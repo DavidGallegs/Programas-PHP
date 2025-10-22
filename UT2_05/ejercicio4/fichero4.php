@@ -27,15 +27,15 @@
         while (($linea = fgets($fichero)) !== false) { 
 
 
-            // Django##Gallegos##Quishpe##11-01-2006##Madrid
+            // Dario##Lopez##Quishpe##11-01-2005##Valencia
 
-            $nombre     = trim(substr($linea, 0, strpos($linea,"#")));  
+            $nombre     = trim(substr($linea, 0, strpos($linea,"##")));  //Dario
+            $apellido1  = trim(substr($linea, strpos($linea,"##")+2, strpos($linea,"##"))); //Lopez
 
-            //Desde ?? hasta el proximo #
-            $apellido1  = trim(substr($linea, 40, 41));    
-            $apellido2  = trim(substr($linea, 81, 42));   
-            $fecha_nac  = trim(substr($linea, 123, 10));   
-            $localidad  = trim(substr($linea, 133, 27));  
+
+            $apellido2  = trim(substr($linea, 0)); // Dario##Lopez##Quishpe##11-01-2005##Valencia
+            $fecha_nac  = trim(substr($linea, 0)); // Dario##Lopez##Quishpe##11-01-2005##Valencia
+            $localidad  = trim(substr($linea, 0)); // Dario##Lopez##Quishpe##11-01-2005##Valencia
 
             echo "<tr>";
             echo "<td>$nombre</td>";

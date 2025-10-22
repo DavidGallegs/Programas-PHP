@@ -1,4 +1,1 @@
-david##Gallegos##Quishpe##11-12-2012##Madrid
-Django##Gallegos##Quishpe##11-01-2006##Madrid
-Diego##Gallegos##Quishpe##11-01-2006##Madrid
 Dario##Lopez##Quishpe##11-01-2005##Valencia
