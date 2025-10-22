@@ -1,0 +1,4 @@
+-Solucionar el las rutas por rutas relativas
+-Hacer Inyección de código
+-Separar lógica de negocio y visualización
+-Usar funciones para mayor comodidad.

@@ -26,23 +26,15 @@
         //Siempre va a ir eligiendo linea por linea, hasta que detecte que no hay más lineas
         while (($linea = fgets($fichero)) !== false) { 
 
+            $datos = explode("##", $linea);
 
-            // Dario##Lopez##Quishpe##11-01-2005##Valencia
-
-            $nombre     = trim(substr($linea, 0, strpos($linea,"##")));  //Dario
-            $apellido1  = trim(substr($linea, strpos($linea,"##")+2, strpos($linea,"##"))); //Lopez
-
-
-            $apellido2  = trim(substr($linea, 0)); // Dario##Lopez##Quishpe##11-01-2005##Valencia
-            $fecha_nac  = trim(substr($linea, 0)); // Dario##Lopez##Quishpe##11-01-2005##Valencia
-            $localidad  = trim(substr($linea, 0)); // Dario##Lopez##Quishpe##11-01-2005##Valencia
 
             echo "<tr>";
-            echo "<td>$nombre</td>";
-            echo "<td>$apellido1</td>";
-            echo "<td>$apellido2</td>";
-            echo "<td>$fecha_nac</td>";
-            echo "<td>$localidad</td>";
+            echo "<td>$datos[0]</td>";
+            echo "<td>$datos[1]</td>";
+            echo "<td>$datos[2]</td>";
+            echo "<td>$datos[3]</td>";
+            echo "<td>$datos[4]</td>";
             echo "</tr>";
 
         }
