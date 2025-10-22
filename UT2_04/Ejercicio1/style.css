@@ -1,0 +1,17 @@
+*{
+    font-size: 1.25rem;
+}
+
+div{
+    text-align: center;
+    margin: auto;
+}
+
+label{
+    margin-top: 20px;
+    display: block;
+}
+.label_inline{
+    display: inline-block;
+}
+

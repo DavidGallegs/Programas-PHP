@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 3</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div>
+
+        <h1>CONVERSOR NUMÉRICO</h1>
+        <form action="cambiobase.php" method="post">
+
+            <label>
+                Número Decimal:
+                <input type="number" required name="numero"> <br>
+            </label>
+
+            <label>
+                Convertir a: <br>
+                <input type="radio" name="option" value="binario" required> Binario 
+                <input type="radio" name="option" value="octal"> Octal
+                <input type="radio" name="option" value="hexadecimal"> hexadecimal 
+                <input type="radio" name="option" value="all"> Todas las opciones 
+            </label>
+            <br>
+
+            <label class="label_inline">
+                <input type="submit" value="Enviar">
+            </label>
+
+            <label class="label_inline">
+                <input type="reset" value="Borrar">
+            </label>
+        </form>
+
+    </div>
+
+        
+    
+</body>
+</html>
