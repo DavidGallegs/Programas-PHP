@@ -9,39 +9,45 @@
 
     <?php
 
-        $ruta = "../ejercicio2/alumnos2.txt";
+        function imprimirT(){
 
-        $fichero = fopen($ruta,"r"); //'r' para extraer los datos del fichero
+            $ruta = "../ejercicio2/alumnos2.txt";
 
-
-        echo "<table border='1'>";
-        echo "<tr>";
-        echo "<th>Nombre</th>";
-        echo "<th>Apellido 1</th>";
-        echo "<th>Apellido 2</th>";
-        echo "<th>Fecha Nacimiento</th>";
-        echo "<th>Localidad</th>";  
-        echo "</tr>"; 
-
-        //Siempre va a ir eligiendo linea por linea, hasta que detecte que no hay más lineas
-        while (($linea = fgets($fichero)) !== false) { 
-
-            //Ver explode e implode
-            $datos = explode("##", $linea);
+            $fichero = fopen($ruta,"r"); //'r' para extraer los datos del fichero
 
 
+            echo "<table border='1'>";
             echo "<tr>";
-            echo "<td>$datos[0]</td>";
-            echo "<td>$datos[1]</td>";
-            echo "<td>$datos[2]</td>";
-            echo "<td>$datos[3]</td>";
-            echo "<td>$datos[4]</td>";
-            echo "</tr>";
+            echo "<th>Nombre</th>";
+            echo "<th>Apellido 1</th>";
+            echo "<th>Apellido 2</th>";
+            echo "<th>Fecha Nacimiento</th>";
+            echo "<th>Localidad</th>";  
+            echo "</tr>"; 
 
+            //Siempre va a ir eligiendo linea por linea, hasta que detecte que no hay más lineas
+            while (($linea = fgets($fichero)) !== false) { 
+
+                //Ver explode e implode
+                $datos = explode("##", $linea);
+
+
+                echo "<tr>";
+                echo "<td>$datos[0]</td>";
+                echo "<td>$datos[1]</td>";
+                echo "<td>$datos[2]</td>";
+                echo "<td>$datos[3]</td>";
+                echo "<td>$datos[4]</td>";
+                echo "</tr>";
+
+            }
+
+            fclose($fichero);
+            echo "</table>";
         }
 
-        fclose($fichero);
-        echo "</table>";
+        imprimirT();
+        
     ?>
     
 </body>
