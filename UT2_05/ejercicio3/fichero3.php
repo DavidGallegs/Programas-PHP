@@ -9,7 +9,7 @@
 
     <?php
 
-        $ruta = "C:/Users/Diego/OneDrive/Documentos/2 GRADO SUPERIOR/DWES/programas php/UT2_05/ejercicio1/alumnos.txt";
+        $ruta = "../ejercicio1/alumnos.txt";
 
         $fichero = fopen($ruta,"r"); //'r' para extraer los datos del fichero
 
