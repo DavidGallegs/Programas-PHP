@@ -22,6 +22,7 @@
         echo "<th>Fecha Nacimiento</th>";
         echo "<th>Localidad</th>";  
         echo "</tr>"; 
+        
 
         //Siempre va a ir eligiendo linea por linea, hasta que detecte que no hay más lineas
         while (($linea = fgets($fichero)) !== false) { 

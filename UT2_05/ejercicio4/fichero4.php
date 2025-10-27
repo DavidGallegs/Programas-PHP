@@ -26,6 +26,7 @@
         //Siempre va a ir eligiendo linea por linea, hasta que detecte que no hay más lineas
         while (($linea = fgets($fichero)) !== false) { 
 
+            //Ver explode e implode
             $datos = explode("##", $linea);
 
 
