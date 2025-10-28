@@ -58,6 +58,8 @@ function repartirCartas($jugadores){
     }
 
     return $reparto;
+
+    
 }
 
 
