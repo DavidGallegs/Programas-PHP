@@ -13,18 +13,19 @@
 */ 
 function main(){
 
-    $jugadores = [];
-
     $jugadores = crearJugadores();
-    repartirCartas($jugadores);
+    $jugadores = repartirCartas($jugadores);
+
+    //Tenmos el array jugadores con sus cartas
+    
 } 
 
 function crearJugadores(){ 
 
-    $jugador1 = $_POST("nombre1");
-    $jugador2 = $_POST("nombre2");
-    $jugador3 = $_POST("nombre3");
-    $jugador4 = $_POST("nombre4");
+    $jugador1 = $_POST["nombre1"];
+    $jugador2 = $_POST["nombre2"];
+    $jugador3 = $_POST["nombre3"];
+    $jugador4 = $_POST["nombre4"];
 
     //Creo los jugadores
     $jugadores = [$jugador1 => [],$jugador2 => [],$jugador3 => [],$jugador4 => []];
@@ -35,7 +36,7 @@ function crearJugadores(){
 
 function repartirCartas($jugadores){
 
-    $numCartas = $_POST("numCartas");
+    $numCartas = $_POST["numCartas"];
     //Creo las cartas
     $cartas = [
     '1C' => 1,'2C' => 2,'3C' => 3,'4C' => 4,'5C' => 5,'6C' => 6,'7C' => 7,'JC' => 0.5,'QC' => 0.5,'KC' => 0.5,
@@ -47,19 +48,16 @@ function repartirCartas($jugadores){
     //Remuevo las cartas
     shuffle($cartas);
 
-    //Repartir
-    $reparto = [];
 
-    foreach ($jugadores as $nombre) {
+    //Repatir
+    foreach ($jugadores as $x => $y) {
         
         // cantidad de cartas por jugador recibidas por el jugador en el formulario
-        $reparto[$nombre] = array_slice($cartas, 0, $numCartas); 
-        array_slice($cartas, $numCartas); // Eliminar las cartas ya repartidas
+        $jugadores[$x] = array_splice($cartas,0, $numCartas); 
     }
 
-    return $reparto;
+    return $jugadores;
 
-    
 }
 
 
