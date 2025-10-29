@@ -5,11 +5,18 @@
     En main creamos un array vacío llamado $jugadores,
     -Pasa por creaJugadores() para darle un nombre a la clave y dejar el valor en null.
     -En repartirCartas() asignamos un array de N cartas a los jugadores
+    - En obtenerSuma() creamos un array copia del original con la suma de sus cartas como valor y clave nombre
+    - En comprobarGanadores() creamos un array copia de obtenerSuma() con solo los ganadores
+    -OBJETIVO: En repartir dinero() quiero añadir una clave y valor "bote" => valor
+    -OBJETIVO 2: Crear el visualizar cartas y nombre con $jugadores
+    -OBJETIVO 3: Mostrarlo en un fichero
 */ 
 function main(){
 
     $jugadores = crearJugadores();
     $jugadores = repartirCartas($jugadores);
+    $jugadoresBote = obetenerSuma($jugadores);
+    $ganadores = comprobarGanadores($jugadoresBote);
 } 
 
 function crearJugadores(){ 
@@ -59,14 +66,7 @@ function repartirCartas($jugadores){
     return $jugadores;
 }
 
-
-
-/* --- ComprobarGanadores() ---
-    -Crea el array $jugadoresBote con el nombre del jugador y la suma de los valores de sus cartas.
-    -Crea el array $ganadores con el nombre del jugador y su valor total siempre y cuando sea menor o igual a 7.5
-
-*/  
-function comprobarGanadores($jugadores){
+function obetenerSuma ($jugadores){
 
     $bote = $_POST["apuesta"];
     $jugadoresBote = [];
@@ -84,6 +84,13 @@ function comprobarGanadores($jugadores){
         $total = 0;
     };
 
+    return $jugadoresBote;
+
+    
+}
+
+function comprobarGanadores($jugadoresBote){
+
     $ganadores = [];
     $contadorGanadores = 0;
     //Obtengo los ganadores que no pasen más de 7.5
@@ -96,6 +103,8 @@ function comprobarGanadores($jugadores){
         }
     }
 
+
+    return $ganadores;
 
 
 
