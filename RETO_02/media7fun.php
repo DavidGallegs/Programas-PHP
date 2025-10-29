@@ -8,14 +8,14 @@
     - En obtenerSuma() creamos un array copia del original con la suma de sus cartas como valor y clave nombre
     - En comprobarGanadores() creamos un array copia de obtenerSuma() con solo los ganadores
     -OBJETIVO: En repartir dinero() quiero añadir una clave y valor "bote" => valor
-    -OBJETIVO 2: Crear el visualizar cartas y nombre con $jugadores
+    -OBJETIVO 2: Crear el visualizar cartas y nombre con $jugadores (Problema! -> ¿Como muestro imagenes?)
     -OBJETIVO 3: Mostrarlo en un fichero
 */ 
 function main(){
 
     $jugadores = crearJugadores();
     $jugadores = repartirCartas($jugadores);
-    $jugadoresBote = obetenerSuma($jugadores);
+    $jugadoresBote = obtenerSuma($jugadores);
     $ganadores = comprobarGanadores($jugadoresBote);
 } 
 
@@ -37,38 +37,37 @@ function repartirCartas($jugadores){
 
     $numCartas = $_POST["numCartas"];
     //Creo las cartas
-    $cartas = [
+    $barajaCartas = [
     '1C' => 1,'2C' => 2,'3C' => 3,'4C' => 4,'5C' => 5,'6C' => 6,'7C' => 7,'JC' => 0.5,'QC' => 0.5,'KC' => 0.5,
     '1D' => 1,'2D' => 2,'3D' => 3,'4D' => 4,'5D' => 5,'6D' => 6,'7D' => 7,'JD' => 0.5,'QD' => 0.5,'KD' => 0.5,
     '1H' => 1,'2H' => 2,'3H' => 3,'4H' => 4,'5H' => 5,'6H' => 6,'7H' => 7,'JH' => 0.5,'QH' => 0.5,'KH' => 0.5,
     '1S' => 1,'2S' => 2,'3S' => 3,'4S' => 4,'5S' => 5,'6S' => 6,'7S' => 7,'JS' => 0.5,'QS' => 0.5,'KS' => 0.5,
     ];
 
-    //Remuevo las cartas
-    shuffle($cartas); //Se pierde las claves
 
-    // $claves = array_keys($cartas);
-    // shuffle($claves);
-    // $cartasBarajadas = [];
-    // foreach ($claves as $clave) {
-    //     $cartasBarajadas[$clave] = $cartas[$clave];
-    // }
-    // $cartas = $cartasBarajadas;
+    //Remueve la baraja
+    $claves = array_keys($barajaCartas);
+    shuffle($claves);
+    $cartasBarajadas = [];
+    foreach ($claves as $clave) {
+        $cartasBarajadas[$clave] = $barajaCartas[$clave];
+    }
+    $barajaCartas = $cartasBarajadas;
 
     //Repatir
-    foreach ($jugadores as $x) {
+    //Arreglar
+    foreach ($jugadores as $nombre => $cartas) {
         
         //Reparte N cartas desde el inicio
         //Seleccionamos solo $x porque esta vacio, no es necesario acceder a $y
-        $jugadores[$x] = array_splice($cartas,0,$numCartas); 
+        $jugadores[$nombre] = array_splice($barajaCartas,0,$numCartas); 
     };
 
     return $jugadores;
 }
 
-function obetenerSuma ($jugadores){
+function obtenerSuma ($jugadores){
 
-    $bote = $_POST["apuesta"];
     $jugadoresBote = [];
     $total = 0;
 
@@ -113,6 +112,8 @@ function comprobarGanadores($jugadoresBote){
 
 
 function repartoDinero($ganadores, $contadorGanadores){
+
+    $bote = $_POST["apuesta"];
 
     if ($contadorGanadores != 0){
 
