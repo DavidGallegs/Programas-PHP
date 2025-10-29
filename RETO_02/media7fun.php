@@ -56,12 +56,13 @@ function repartirCartas($jugadores){
     shuffle($claves);
     $cartasBarajadas = [];
     foreach ($claves as $clave) {
-        
+
         //cartasBarajadas['3C'] => null
         $cartasBarajadas[$clave] = $baraja[$clave]; //cartasBarajadas['3C'] = $baraja['3C'] (3)
         //cartasBarajadas['3C'] => 3
     }
     $baraja = $cartasBarajadas;
+
 
     //Repatir
     foreach ($jugadores as $nombre => $cartas) {
@@ -90,8 +91,6 @@ function obtenerSuma ($jugadores){
     };
 
     return $jugadoresBote;
-
-    
 }
 
 function comprobarGanadores($jugadoresBote){
@@ -108,12 +107,7 @@ function comprobarGanadores($jugadoresBote){
         }
     }
 
-
     return $ganadores;
-
-
-
-
 }
 
 
