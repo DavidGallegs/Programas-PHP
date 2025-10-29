@@ -1,33 +1,21 @@
 <?php
 
-//--- MAIN ----
-/*
-    En main creamos un array vacío llamado $jugadores,
-    -Pasa por creaJugadores() para darle un nombre a la clave y dejar el valor en null.
-    -En repartirCartas() asignamos un array de N cartas a los jugadores
-    - En obtenerSuma() creamos un array copia del original con la suma de sus cartas como valor y clave nombre
-    - En comprobarGanadores() creamos un array copia de obtenerSuma() con solo los ganadores
-    -OBJETIVO: En repartir dinero() quiero añadir una clave y valor "bote" => valor
-    -OBJETIVO 2: Crear el visualizar cartas y nombre con $jugadores (Problema! -> ¿Como muestro imagenes?)
-    -OBJETIVO 3: Mostrarlo en un fichero
-*/ 
-function main(){
-
-    $jugadores = crearJugadores();
-    $jugadores = repartirCartas($jugadores);
-    $jugadoresBote = obtenerSuma($jugadores);
-    $ganadores = comprobarGanadores($jugadoresBote);
-} 
+function test_input($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
 
 function crearJugadores(){ 
 
-    $jugador1 = $_POST["nombre1"];
-    $jugador2 = $_POST["nombre2"];
-    $jugador3 = $_POST["nombre3"];
-    $jugador4 = $_POST["nombre4"];
+    $jugador1 = test_input($_POST["nombre1"]);
+    $jugador2 = test_input($_POST["nombre2"]);
+    $jugador3 = test_input($_POST["nombre3"]);
+    $jugador4 = test_input($_POST["nombre4"]);
 
     //Creo los jugadores
-    $jugadores = [$jugador1 => [],$jugador2 => [],$jugador3 => [],$jugador4 => []];
+    $jugadores = array($jugador1 => [],$jugador2 => [],$jugador3 => [],$jugador4 => []);
 
     return $jugadores;
 }
@@ -35,7 +23,7 @@ function crearJugadores(){
 
 function repartirCartas($jugadores){
 
-    $numCartas = $_POST["numCartas"];
+    $numCartas = (int)test_input($_POST["numCartas"]);
     //Creo las cartas
     $baraja = [
     '1C' => 1,'2C' => 2,'3C' => 3,'4C' => 4,'5C' => 5,'6C' => 6,'7C' => 7,'JC' => 0.5,'QC' => 0.5,'KC' => 0.5,
@@ -45,32 +33,31 @@ function repartirCartas($jugadores){
     ];
 
 
-    /* --- Revolver Cartas ---
-        - Hacemos una copia de las claves de la baraja en un array
-        - Luego revolvemos esas claves y creamos un array para guardar el proceso
-        - En el foreach() asociamos la clave del nuevo array con la clave de la baraja
-        como coincide la clave, con el = pasamos ese valor a la clave del nuevo array
-        como resultado revolvemos las cartas y conservamos claves y valores.  
+    
+    $baraja = revolverCartas($baraja);
+
+
+
+    /* --- Repartir Cartas ---
+        - Para cada jugador tomamos las primeras N cartas del mazo (con array_slice)
+        - Se mantiene la clave con el cuarto parámetro true
+        - Se eliminan esas cartas del mazo con array_diff_key()
     */
-    $claves = array_keys($baraja); 
-    shuffle($claves);
-    $cartasBarajadas = [];
-    foreach ($claves as $clave) {
-
-        //cartasBarajadas['3C'] => null
-        $cartasBarajadas[$clave] = $baraja[$clave]; //cartasBarajadas['3C'] = $baraja['3C'] (3)
-        //cartasBarajadas['3C'] => 3
-    }
-    $baraja = $cartasBarajadas;
-
-
-    //Repatir
     foreach ($jugadores as $nombre => $cartas) {
-        
-        //array_Slice y array_dif_key
-    };
+
+        //Saca cartas
+        $mano = array_slice($baraja, 0, $numCartas, true);
+
+        //Se la damos al jugador
+        $jugadores[$nombre] = $mano;
+
+        // Eliminar cartas sacadas
+        $baraja = array_diff_key($baraja, $mano);
+    }
 
     return $jugadores;
+
+    
 }
 
 function obtenerSuma ($jugadores){
@@ -96,14 +83,12 @@ function obtenerSuma ($jugadores){
 function comprobarGanadores($jugadoresBote){
 
     $ganadores = [];
-    $contadorGanadores = 0;
     //Obtengo los ganadores que no pasen más de 7.5
     foreach ($jugadoresBote as $jugador => $resultado){
 
         if ($resultado <= 7.5){
 
             $ganadores[$jugador] = $resultado;
-            $contadorGanadores++;
         }
     }
 
@@ -111,24 +96,78 @@ function comprobarGanadores($jugadoresBote){
 }
 
 
-function repartoDinero($ganadores, $contadorGanadores){
+function repartoDinero($ganadores,$jugadoresBote){
 
-    $bote = $_POST["apuesta"];
+    $bote = (float)test_input($_POST["apuesta"]);
+    $numGanadores = count($ganadores);
+    $reparto =[];
 
-    if ($contadorGanadores != 0){
+     // Recorremos todos los jugadores (ganadores + perdedores)
+    foreach ($jugadoresBote as $jugador => $puntos) {
 
-        if($contadorGanadores == 1 && $ganadores ){
-            
+        // Si es ganador
+        if (isset($ganadores[$jugador])) {
+
+            // Caso 1: un solo ganador
+            if ($numGanadores == 1) {
+                if ($puntos < 7.5) {
+                    $reparto[$jugador] = $bote * 0.5; // 50% del bote
+                } else { // 7.5 exacto
+                    $reparto[$jugador] = $bote * 0.8; // 80% del bote
+                }
+            }
+
+            // Caso 2: 2 o más ganadores
+            elseif ($numGanadores >= 2) {
+
+                // Comprobar si alguno tiene 7.5
+                $empate75 = false;
+                foreach ($ganadores as $p) {
+                    if ($p == 7.5) {
+                        $empate75 = true;
+                        break;
+                    }
+                }
+
+                if ($empate75) {
+                    $reparto[$jugador] = ($bote * 0.8) / $numGanadores; // 80% del bote dividido
+                } else {
+                    $reparto[$jugador] = ($bote * 0.5) / $numGanadores; // 50% del bote dividido
+                }
+            }
+        } 
+        // Si es perdedor
+        else {
+            $reparto[$jugador] = 0; // Regla 5.4: mostrar 0€
         }
     }
-
-
-
+    return $reparto; // Devuelve array con cada jugador y su dinero
 }
 
-//- VISUALIZAR LAS CARTAS Y NOMBRE EN TABLA (Antes de comprobar lso ganadores)
-//- PASAR A UN FICHERO LOS DATOS QUE SE PIDE (Una vez determinado el/los ganadores
-// se llama en la función comprobarGanadores() a una función que guarde los
-//datos necesarios en el fichero)
+
+//-------------------------- VISUALIZACIÓN 
+
+
+//-------------------------- SUB-FUNCIONES ------------------
+function revolverCartas($baraja){
+
+    /* --- Revolver Cartas ---
+        - Hacemos una copia de las claves de la baraja en un array
+        - Luego revolvemos esas claves y creamos un array para guardar el proceso
+        - En el foreach() asociamos la clave del nuevo array con la clave de la baraja
+        como coincide la clave, con el = pasamos ese valor a la clave del nuevo array
+        como resultado revolvemos las cartas y conservamos claves y valores.  
+    */
+    $claves = array_keys($baraja); 
+    shuffle($claves);
+    $cartasBarajadas = [];
+    foreach ($claves as $clave) {
+
+        //cartasBarajadas['3C'] => null
+        $cartasBarajadas[$clave] = $baraja[$clave]; //cartasBarajadas['3C'] = $baraja['3C'] (3)
+        //cartasBarajadas['3C'] => 3
+    }
+    return $cartasBarajadas;
+}
 
 ?>
