@@ -6,12 +6,16 @@
     - En obtenerSuma() creamos un array copia del original con la suma de sus cartas como valor y clave nombre
     - En comprobarGanadores() creamos un array copia de obtenerSuma() con solo los ganadores
     - En repartirDinero() repartimos el dinero a los ganadores y generamos un array reparto (array Final)
-    include 'media.7fun.php';
     */
 
     $jugadores = crearJugadores();
     $jugadores = repartirCartas($jugadores);
+
+    mostrarTabla($jugadores);
+    
     $jugadoresBote = obtenerSuma($jugadores);
     $ganadores = comprobarGanadores($jugadoresBote);
     $reparto = repartoDinero($ganadores,$jugadoresBote);
+
+    
 ?>  

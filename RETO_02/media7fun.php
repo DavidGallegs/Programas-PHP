@@ -23,13 +23,13 @@ function crearJugadores(){
 
 function repartirCartas($jugadores){
 
-    $numCartas = (int)test_input($_POST["numCartas"]);
+    $numCartas = (int)test_input($_POST["numcartas"]);  
     //Creo las cartas
     $baraja = [
     '1C' => 1,'2C' => 2,'3C' => 3,'4C' => 4,'5C' => 5,'6C' => 6,'7C' => 7,'JC' => 0.5,'QC' => 0.5,'KC' => 0.5,
     '1D' => 1,'2D' => 2,'3D' => 3,'4D' => 4,'5D' => 5,'6D' => 6,'7D' => 7,'JD' => 0.5,'QD' => 0.5,'KD' => 0.5,
-    '1H' => 1,'2H' => 2,'3H' => 3,'4H' => 4,'5H' => 5,'6H' => 6,'7H' => 7,'JH' => 0.5,'QH' => 0.5,'KH' => 0.5,
-    '1S' => 1,'2S' => 2,'3S' => 3,'4S' => 4,'5S' => 5,'6S' => 6,'7S' => 7,'JS' => 0.5,'QS' => 0.5,'KS' => 0.5,
+    '1P' => 1,'2P' => 2,'3P' => 3,'4P' => 4,'5P' => 5,'6P' => 6,'7P' => 7,'JP' => 0.5,'QP' => 0.5,'KP' => 0.5,
+    '1T' => 1,'2T' => 2,'3T' => 3,'4T' => 4,'5T' => 5,'6T' => 6,'7T' => 7,'JT' => 0.5,'QT' => 0.5,'KT' => 0.5,
     ];
 
 
@@ -145,7 +145,21 @@ function repartoDinero($ganadores,$jugadoresBote){
 }
 
 
-//-------------------------- VISUALIZACIÓN 
+//-------------------------- VISUALIZACIÓN --------------------
+function mostrarTabla($jugadores){
+    foreach($jugadores as $nombre => $cartas){
+        echo '<table border="1"';
+        echo '<tr>';
+        echo '<th>'.$nombre.'</th>';
+        echo '<th>';
+        foreach(array_keys($cartas) as $carta){
+            echo '<img src="images/'.$carta.'.png" alt="'.$carta.'" style="width:100px;margin-right:5px">';
+        }
+        echo '</th>';
+        echo '</tr>';
+        echo '</table>';
+    }
+}
 
 
 //-------------------------- SUB-FUNCIONES ------------------
