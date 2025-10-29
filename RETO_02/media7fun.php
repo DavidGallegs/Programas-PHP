@@ -37,7 +37,7 @@ function repartirCartas($jugadores){
 
     $numCartas = $_POST["numCartas"];
     //Creo las cartas
-    $barajaCartas = [
+    $baraja = [
     '1C' => 1,'2C' => 2,'3C' => 3,'4C' => 4,'5C' => 5,'6C' => 6,'7C' => 7,'JC' => 0.5,'QC' => 0.5,'KC' => 0.5,
     '1D' => 1,'2D' => 2,'3D' => 3,'4D' => 4,'5D' => 5,'6D' => 6,'7D' => 7,'JD' => 0.5,'QD' => 0.5,'KD' => 0.5,
     '1H' => 1,'2H' => 2,'3H' => 3,'4H' => 4,'5H' => 5,'6H' => 6,'7H' => 7,'JH' => 0.5,'QH' => 0.5,'KH' => 0.5,
@@ -45,22 +45,28 @@ function repartirCartas($jugadores){
     ];
 
 
-    //Remueve la baraja
-    $claves = array_keys($barajaCartas);
+    /* --- Revolver Cartas ---
+        - Hacemos una copia de las claves de la baraja en un array
+        - Luego revolvemos esas claves y creamos un array para guardar el proceso
+        - En el foreach() asociamos la clave del nuevo array con la clave de la baraja
+        como coincide la clave, con el = pasamos ese valor a la clave del nuevo array
+        como resultado revolvemos las cartas y conservamos claves y valores.  
+    */
+    $claves = array_keys($baraja); 
     shuffle($claves);
     $cartasBarajadas = [];
     foreach ($claves as $clave) {
-        $cartasBarajadas[$clave] = $barajaCartas[$clave];
+        
+        //cartasBarajadas['3C'] => null
+        $cartasBarajadas[$clave] = $baraja[$clave]; //cartasBarajadas['3C'] = $baraja['3C'] (3)
+        //cartasBarajadas['3C'] => 3
     }
-    $barajaCartas = $cartasBarajadas;
+    $baraja = $cartasBarajadas;
 
     //Repatir
-    //Arreglar
     foreach ($jugadores as $nombre => $cartas) {
         
-        //Reparte N cartas desde el inicio
-        //Seleccionamos solo $x porque esta vacio, no es necesario acceder a $y
-        $jugadores[$nombre] = array_splice($barajaCartas,0,$numCartas); 
+        //array_Slice y array_dif_key
     };
 
     return $jugadores;
