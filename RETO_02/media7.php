@@ -12,10 +12,12 @@
     $jugadores = repartirCartas($jugadores);
 
     mostrarTabla($jugadores);
-    
+
     $jugadoresBote = obtenerSuma($jugadores);
     $ganadores = comprobarGanadores($jugadoresBote);
     $reparto = repartoDinero($ganadores,$jugadoresBote);
+    
+    mostrarEnFichero($jugadoresBote, $reparto);
 
     
 ?>  

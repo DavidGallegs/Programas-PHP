@@ -96,9 +96,10 @@ function comprobarGanadores($jugadoresBote){
 }
 
 
+//ARREGLAR FUNCIÓN REPATIR
 function repartoDinero($ganadores,$jugadoresBote){
 
-    $bote = (float)test_input($_POST["apuesta"]);
+    $bote = (int)test_input($_POST["apuesta"]);
     $numGanadores = count($ganadores);
     $reparto =[];
 
@@ -159,6 +160,25 @@ function mostrarTabla($jugadores){
         echo '</tr>';
         echo '</table>';
     }
+}
+
+
+//ARREGLAR EL MOSTRAR FICHERO
+function mostrarEnFichero($jugadoresBote, $reparto) {
+    $file = fopen("resultados.txt", "w"); // Se crea en la misma carpeta
+    if (!$file) {
+        echo "No se pudo crear el fichero.";
+        return;
+    }
+
+    foreach ($jugadoresBote as $jugador => $puntos) {
+        $dinero = isset($reparto[$jugador]) ? $reparto[$jugador] : 0;
+        fwrite($file, "$jugador#$puntos#$dinero\n");
+    }
+
+    fwrite($file, "TOTALPREMIOS#0#0\n");
+
+    fclose($file);
 }
 
 
